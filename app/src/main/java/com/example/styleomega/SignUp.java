@@ -17,6 +17,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class SignUp extends AppCompatActivity {
     EditText Name,Email,PhoneNo,Password;
@@ -24,6 +31,9 @@ public class SignUp extends AppCompatActivity {
     TextView signInLink;
     ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference myRef;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +48,8 @@ public class SignUp extends AppCompatActivity {
         signInLink=findViewById(R.id.textView_login);
         progressBar=findViewById(R.id.progressBarSignUp);
         firebaseAuth=FirebaseAuth.getInstance();
+
+
 
         signInLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,10 +70,15 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void createAccount() {
-        String name=Name.getText().toString().trim();
-        String email=Email.getText().toString().trim();
-        String phoneNo=PhoneNo.getText().toString().trim();
-        String password=Password.getText().toString().trim();
+        final String name=Name.getText().toString().trim();
+        final String email=Email.getText().toString().trim();
+        final String phoneNo=PhoneNo.getText().toString().trim();
+        final String password=Password.getText().toString().trim();
+        // Write a message to the database
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = firebaseDatabase.getReference();
+
+        myRef.setValue("Hello, World!");
 
         if(firebaseAuth.getCurrentUser()!=null)
         {
@@ -98,17 +115,45 @@ public class SignUp extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful())
-                {
-                    Toast.makeText(SignUp.this,"User Registration Successful",Toast.LENGTH_LONG).show();
+                 Toast.makeText(SignUp.this,"User Registration Successful",Toast.LENGTH_LONG).show();
+                    userId = firebaseAuth.getCurrentUser().getUid();
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                HashMap<String,Object> userData = new HashMap<>();
+                                userData.put("phone",phoneNo);
+                                userData.put("name",name);
+
+
+                                myRef.child("Users").child(userId).updateChildren(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(SignUp.this, "Your account has been created",Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(SignUp.this,MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(SignUp.this,"User Registration UnSuccessful "+task.getException(),Toast.LENGTH_LONG).show();
+                                            progressBar.setVisibility(View.GONE);
+                                            btnSignUp.setVisibility(View.VISIBLE);
+//
+                                        }
+                                    }
+                                });
+                            }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     startActivity(new Intent(SignUp.this,MainActivity.class));
-                }
-                else
-                    {
-                        Toast.makeText(SignUp.this,"User Registration UnSuccessful "+task.getException(),Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                        btnSignUp.setVisibility(View.VISIBLE);
-                    }
+
+
             }
         });
 
