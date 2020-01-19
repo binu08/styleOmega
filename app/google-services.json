@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "189191456686",
+    "firebase_url": "https://styleomega-5cfcd.firebaseio.com",
+    "project_id": "styleomega-5cfcd",
+    "storage_bucket": "styleomega-5cfcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189191456686:android:bfe4bc76c60327b2cc2a3f",
+        "android_client_info": {
+          "package_name": "com.example.styleomega"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189191456686-vthvgpugc7kmkkv5vj6elkun8efd7j3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.styleomega",
+            "certificate_hash": "840172b2db140ecdc437d0360a90ab4ce153237a"
+          }
+        },
+        {
+          "client_id": "189191456686-ngn7qtm5253750uu4i27h317kdk7fsdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnI7fTE6Vi5jjpl9ucdCUvnyPhtoo6AVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189191456686-ngn7qtm5253750uu4i27h317kdk7fsdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
