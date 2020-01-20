@@ -115,7 +115,7 @@ public class SignUp extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                 Toast.makeText(SignUp.this,"User Registration Successful",Toast.LENGTH_LONG).show();
+
                     userId = firebaseAuth.getCurrentUser().getUid();
                     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
