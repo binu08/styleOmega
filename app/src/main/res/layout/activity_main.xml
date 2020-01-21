@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0A0138"
+    android:background="@color/colorPrimaryDark"
     tools:context=".MainActivity">
 
     <ImageView
@@ -68,6 +68,7 @@
         android:layout_marginStart="85dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="85dp"
+        android:background="@drawable/buttons"
         android:backgroundTint="#DDFFFFFF"
         android:fontFamily="@font/biorhyme_extralight"
         android:text="Login"
@@ -82,15 +83,30 @@
         android:id="@+id/textView_createAccountLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:text="Create an Account"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintEnd_toStartOf="@+id/textView_forgotPasswordLink"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_signin"
-        app:layout_constraintVertical_bias="0.031" />
+        app:layout_constraintVertical_bias="0.107" />
+
+    <TextView
+        android:id="@+id/textView_forgotPasswordLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="52dp"
+
+        android:text="Forgot Password?"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_signin"
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <ProgressBar
         android:id="@+id/progressBarLogin"
@@ -109,19 +125,35 @@
         app:layout_constraintTop_toBottomOf="@+id/editText_Register_password"
         app:layout_constraintVertical_bias="0.166" />
 
+
     <TextView
         android:id="@+id/textView_adminLogin"
-        android:layout_width="114dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="105dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
-        android:hint="Login as Admin?"
+        android:text="Login as Admin?"
+        android:textColor="#E8FFFFFF"
         android:textColorHint="#E8FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
-        app:layout_constraintStart_toEndOf="@+id/progressBarLogin"
-        app:layout_constraintTop_toBottomOf="@+id/textView_createAccountLink"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_createAccountLink" />
+
+    <CheckBox
+        android:id="@+id/checkBox_remeberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:checked="false"
+        android:text="Remember Me"
+        android:textColor="#E8FFFFFF"
+        android:textColorHint="#FDF8F7F7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView_adminLogin"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_createAccountLink" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

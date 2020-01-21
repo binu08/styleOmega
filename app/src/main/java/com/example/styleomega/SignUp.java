@@ -78,8 +78,9 @@ public class SignUp extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
 
-        myRef.setValue("Hello, World!");
+        //myRef.setValue("Hello, World!");
 
+        //if user is already loggeg in
         if(firebaseAuth.getCurrentUser()!=null)
         {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
