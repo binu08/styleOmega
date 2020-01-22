@@ -11,7 +11,7 @@
         android:id="@+id/imageView2"
         android:layout_width="271dp"
         android:layout_height="251dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText_Register_Email"
+        app:layout_constraintBottom_toTopOf="@+id/editText_Register_PhoneNo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/logowhite" />
 
     <EditText
-        android:id="@+id/editText_Register_Email"
+        android:id="@+id/editText_Register_PhoneNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="85dp"
@@ -29,8 +29,8 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
+        android:hint="PhoneNo"
+        android:inputType="number"
         android:singleLine="false"
         android:textColor="#FDFDFD"
         android:textColorHint="#FDFDFD"
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Register_Email" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_Register_PhoneNo" />
 
 
     <Button
@@ -107,23 +107,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_signin"
         app:layout_constraintVertical_bias="0.100000024" />
-
-    <ProgressBar
-        android:id="@+id/progressBarLogin"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="51dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="185dp"
-        android:layout_marginBottom="144dp"
-        android:progressTint="#4100AC"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Register_password"
-        app:layout_constraintVertical_bias="0.166" />
 
 
     <TextView

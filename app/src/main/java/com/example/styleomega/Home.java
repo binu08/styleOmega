@@ -18,8 +18,7 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        firebaseAuth=FirebaseAuth.getInstance();
-         btnSignIn=findViewById(R.id.button_Home_logout);
+        btnSignIn=findViewById(R.id.button_Home_logout);
 
          btnSignIn.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -32,9 +31,8 @@ public class Home extends AppCompatActivity {
     }
 
     private void logout() {
-        firebaseAuth.signOut();
         startActivity(new Intent(Home.this,MainActivity.class));
-        Toast.makeText(Home.this,"LogOut Successful",Toast.LENGTH_LONG).show();
+        Toast.makeText(Home.this,"LogOut Successful",Toast.LENGTH_SHORT).show();
         finish();
     }
 }
