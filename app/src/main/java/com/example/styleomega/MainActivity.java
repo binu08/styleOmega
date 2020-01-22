@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (adminLink.getText().toString().equalsIgnoreCase("Login As User?")) {
                     btnSignIn.setText("Login");
                     databaseType = "Users";
+                    rememberMe.setVisibility(View.VISIBLE);
                     adminLink.setText("Login As Admin?");
                 } else {
                     btnSignIn.setText("Login As Admin");
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                             } else if (databaseType.equals("Admins")) {
                                 loadingBar.dismiss();
                                 Toast.makeText(MainActivity.this, "Logged in as ADMIN " + user.getName(), Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(MainActivity.this, AdminAddNewProduct.class));
+                                startActivity(new Intent(MainActivity.this, AdminHome.class));
                             }
 
                         } else {
@@ -257,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                             } else if (databaseType.equals("Admins")) {
                                 loadingBar.dismiss();
                                 Toast.makeText(MainActivity.this, "Welcome Back ADMIN, " + user.getName(), Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(MainActivity.this, AdminAddNewProduct.class));
+                                startActivity(new Intent(MainActivity.this, AdminHome.class));
                             }
 
                         } else {

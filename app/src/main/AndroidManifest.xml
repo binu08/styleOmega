@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminAddNewProduct"></activity>
+        <activity android:name=".AdminAddNewItem"></activity>
+        <activity android:name=".AdminHome" />
+        <activity android:name=".AdminCategory" />
+        <activity android:name=".AdminAddNewProduct" />
         <activity android:name=".Home" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
@@ -19,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

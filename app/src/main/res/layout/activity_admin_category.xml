@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminCategory">
+
+    <TextView
+        android:id="@+id/catergory_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
+
+        android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
+        android:text="Add New Product"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#E8070000"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/liner_layout1_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/liner_layout1_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/liner_layout2_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/catergory_label">
+
+        <ImageView
+            android:id="@+id/imageView_Shirts"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/shirt" />
+
+        <ImageView
+            android:id="@+id/imageView_Tshirts"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/tshirt" />
+
+        <ImageView
+            android:id="@+id/imageView_Tops"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/tops" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/liner_layout2_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/liner_layout3_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liner_layout1_category">
+
+        <ImageView
+            android:id="@+id/imageView_Trousers"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/trousers" />
+
+        <ImageView
+            android:id="@+id/imageView_Jeans"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/jeans" />
+
+        <ImageView
+            android:id="@+id/imageView_Shorts"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/shorts" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/liner_layout3_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liner_layout2_category">
+
+        <ImageView
+            android:id="@+id/imageView_Dresses"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dress" />
+
+        <ImageView
+            android:id="@+id/imageView_Swimwear"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/swimwear" />
+
+        <ImageView
+            android:id="@+id/imageView_Wearables"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/wearables" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
