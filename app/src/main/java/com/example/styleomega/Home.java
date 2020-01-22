@@ -10,17 +10,17 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import io.paperdb.Paper;
+
 public class Home extends AppCompatActivity {
-    FirebaseAuth firebaseAuth;
-    Button btnSignIn;
+    Button logoutbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        btnSignIn=findViewById(R.id.button_Home_logout);
-
-         btnSignIn.setOnClickListener(new View.OnClickListener() {
+        logoutbtn=findViewById(R.id.button_Home_logout);
+        logoutbtn.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  logout();
@@ -31,6 +31,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void logout() {
+        Paper.book().destroy(); //to logout
         startActivity(new Intent(Home.this,MainActivity.class));
         Toast.makeText(Home.this,"LogOut Successful",Toast.LENGTH_SHORT).show();
         finish();

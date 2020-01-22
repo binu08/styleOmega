@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.styleomega.Model.User;
+import com.example.styleomega.Prevalent.Prevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import io.paperdb.Paper;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog loadingBar;
     FirebaseAuth firebaseAuth;
     CheckBox rememberMe;
-    String databseType = "Users";
+    String databaseType = "Users";
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference myRef;
 
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
         rememberMe = findViewById(R.id.checkBox_remeberMe);
+        Paper.init(MainActivity.this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
 
@@ -68,16 +73,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (adminLink.getText().toString().equalsIgnoreCase("Login As Admin?")) {
                     btnSignIn.setText("Login As Admin");
-                    databseType = "Admins";
+                    databaseType = "Admins";
+                    rememberMe.setVisibility(View.INVISIBLE);
                     adminLink.setText("Login As User?");
                 } else if (adminLink.getText().toString().equalsIgnoreCase("Login As User?")) {
                     btnSignIn.setText("Login");
-                    databseType = "Users";
+                    databaseType = "Users";
                     adminLink.setText("Login As Admin?");
                 } else {
                     btnSignIn.setText("Login As Admin");
                     adminLink.setText("Login As User?");
-                    databseType = "Users";
+                    databaseType = "Users";
                 }
 
             }
@@ -92,22 +98,17 @@ public class MainActivity extends AppCompatActivity {
                 String pass = password.getText().toString().trim();
 
                 if (isEmpty(phoneNumber)) {
-                    phoneNo.setError("Email is required");
+                    phoneNo.setError("PhoneNo is required");
                 } else if (isEmpty(pass)) {
-                    password.setError("Email is required");
+                    password.setError("Password is required");
                 } else {
-                    if (btnSignIn.getText().equals("Login")) {
 
-                        loadingBar.setTitle("Login Account");
-                        loadingBar.setMessage("Please Wait! Authenticating");
-                        loadingBar.setCanceledOnTouchOutside(false);
-                        loadingBar.show();
-                        AllowLogin(phoneNumber, pass);
+                    loadingBar.setTitle("Login Account");
+                    loadingBar.setMessage("Please Wait! Authenticating");
+                    loadingBar.setCanceledOnTouchOutside(false);
+                    loadingBar.show();
+                    AllowLogin(phoneNumber, pass);
 
-                    } else if (btnSignIn.getText().equals("Login As Admin")) {
-                        //loginAsAdmin();
-
-                    }
                 }
 
 
@@ -162,29 +163,61 @@ public class MainActivity extends AppCompatActivity {
 //                passwordResetDailog.create().show();
 //            }
 //        });
+
+        String userPhoneNo = Paper.book().read(Prevalent.userPhoneNo);
+        String userPassword = Paper.book().read(Prevalent.userPassword);
+
+
+
+        if (userPassword != "" && userPhoneNo != "") {
+
+
+            if (!TextUtils.isEmpty(userPhoneNo) && !TextUtils.isEmpty(userPassword)) {
+
+                loadingBar.setTitle("Logging In using Remember Me");
+                loadingBar.setMessage("Hold a moment");
+                loadingBar.setCanceledOnTouchOutside(false);
+                loadingBar.show();
+
+
+                AllowLoginFromRemeberMe(userPhoneNo, userPassword);   //remember me function
+
+            }
+
+        }
     }
 
     private void AllowLogin(final String phoneNo, final String password) {
 
+        if (rememberMe.isChecked()) {
+            Paper.book().write(Prevalent.userPhoneNo, phoneNo);
+            Paper.book().write(Prevalent.userPassword, password);
+
+        }
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(databseType).child(phoneNo).exists()) {
-                    User user = dataSnapshot.child(databseType).child(phoneNo).getValue(User.class);
+                if (dataSnapshot.child(databaseType).child(phoneNo).exists()) {
+                    User user = dataSnapshot.child(databaseType).child(phoneNo).getValue(User.class);
                     if (user.getPhone().equals(phoneNo)) {
                         if (user.getPassword().equals(password)) {
-                            loadingBar.dismiss();
-                            Toast.makeText(MainActivity.this, "Logged in as " + user.getName(), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(MainActivity.this, Home.class));
-                        }
-                        else
-                            {
+                            if (databaseType.equals("Users")) {
                                 loadingBar.dismiss();
-                                Toast.makeText(MainActivity.this, "Please enter valid Password ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Logged in as " + user.getName(), Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(MainActivity.this, Home.class));
+                            } else if (databaseType.equals("Admins")) {
+                                loadingBar.dismiss();
+                                Toast.makeText(MainActivity.this, "Logged in as ADMIN " + user.getName(), Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(MainActivity.this, AdminAddNewProduct.class));
                             }
+
+                        } else {
+                            loadingBar.dismiss();
+                            Toast.makeText(MainActivity.this, "Please enter valid Password ", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         loadingBar.dismiss();
                         Toast.makeText(MainActivity.this, "Please enter valid credentials", Toast.LENGTH_LONG).show();
@@ -192,6 +225,52 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(MainActivity.this, "Phone No with this number " + phoneNo + " does not exist", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void AllowLoginFromRemeberMe(final String phoneNo, final String password) {
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = firebaseDatabase.getReference();
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(databaseType).child(phoneNo).exists()) {
+                    User user = dataSnapshot.child(databaseType).child(phoneNo).getValue(User.class);
+                    if (user.getPhone().equals(phoneNo)) {
+                        if (user.getPassword().equals(password)) {
+                            if (databaseType.equals("Users")) {
+                                loadingBar.dismiss();
+                                Toast.makeText(MainActivity.this, "Welcome Back, " + user.getName(), Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(MainActivity.this, Home.class));
+                            } else if (databaseType.equals("Admins")) {
+                                loadingBar.dismiss();
+                                Toast.makeText(MainActivity.this, "Welcome Back ADMIN, " + user.getName(), Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(MainActivity.this, AdminAddNewProduct.class));
+                            }
+
+                        } else {
+                            loadingBar.dismiss();
+                            Toast.makeText(MainActivity.this, "Password Incorrect! Error Occurred! while trying to login using cached data", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        loadingBar.dismiss();
+                        Toast.makeText(MainActivity.this, "Error Occurered! while trying to login using cached data", Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    Toast.makeText(MainActivity.this, "Phone Number does not exist! Error Occurred! while trying to login using cached data", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
 
                 }
