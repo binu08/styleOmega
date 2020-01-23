@@ -3,10 +3,15 @@ package com.example.styleomega;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.styleomega.Model.Products;
 import com.example.styleomega.Prevalent.Prevalent;
+import com.example.styleomega.ViewHolder.ProductViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,13 +23,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -34,12 +45,25 @@ public class Home extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private DatabaseReference ProductsReference;
+    private RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Paper.init(this);
+        ProductsReference= FirebaseDatabase.getInstance().getReference().child("Products");
+        recyclerView=findViewById(R.id.recycler_menu);
+        recyclerView.setHasFixedSize(true);
+        layoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
@@ -74,18 +98,47 @@ public class Home extends AppCompatActivity implements
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        //1)used for adding the querey that retrieves the data from database
+        FirebaseRecyclerOptions<Products> options=new FirebaseRecyclerOptions.Builder<Products>().setQuery(ProductsReference,Products.class).build();
+        //2) creating the recycler adapter
+       FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter=new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
+           @Override
+           protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model) {
+
+               holder.txtproductName.setText(model.getProductName());
+               holder.txtProductDescription.setText(model.getDescription());
+               holder.txtProductPrice.setText("$"+model.getPrice());
+               Picasso.get().load(model.getImage()).into(holder.imageView); //converting the link to image
+           }
+
+           @NonNull
+           @Override
+           public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+               View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.product_items,parent,false);
+               ProductViewHolder holder=new ProductViewHolder(view);
+               return holder;
+           }
+       };
+
+       recyclerView.setAdapter(adapter);
+       adapter.startListening();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+//                || super.onSupportNavigateUp();
+//    }
 
 
     @Override
