@@ -208,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                             if (databaseType.equals("Users")) {
                                 loadingBar.dismiss();
                                 Toast.makeText(MainActivity.this, "Logged in as " + user.getName(), Toast.LENGTH_LONG).show();
+                                Prevalent.currentUser=user;
                                 startActivity(new Intent(MainActivity.this, Home.class));
                             } else if (databaseType.equals("Admins")) {
                                 loadingBar.dismiss();

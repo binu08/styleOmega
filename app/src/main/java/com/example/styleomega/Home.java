@@ -3,6 +3,7 @@ package com.example.styleomega;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.styleomega.Prevalent.Prevalent;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,7 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity implements
@@ -56,12 +59,18 @@ public class Home extends AppCompatActivity implements
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_cart, R.id.nav_orders, R.id.nav_categories,
-                R.id.nav_settings, R.id.nav_logout, R.id.nav_gallery)
+                R.id.nav_settings, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View header=navigationView.getHeaderView(0);
+        TextView userNameTextView=header.findViewById(R.id.User_profile_name);
+        CircleImageView profileImageView=header.findViewById(R.id.User_profile_image);
+        userNameTextView.setText(Prevalent.currentUser.getName());
+
     }
 
     @Override
@@ -111,7 +120,7 @@ public class Home extends AppCompatActivity implements
 
             Paper.book().destroy();
             Intent intent = new Intent(Home.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //this will make sure you cant back out again
             startActivity(intent);
             finish();
 
