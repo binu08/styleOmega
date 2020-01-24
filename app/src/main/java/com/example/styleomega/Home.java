@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -37,6 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
@@ -48,6 +50,7 @@ public class Home extends AppCompatActivity implements
     private DatabaseReference ProductsReference;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +80,19 @@ public class Home extends AppCompatActivity implements
                         .setAction("Action", null).show();
             }
         });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -86,15 +100,29 @@ public class Home extends AppCompatActivity implements
                 R.id.nav_settings, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
 
+
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+//        NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        //getting the navigation bar and setting the username and profile picture
         View header=navigationView.getHeaderView(0);
         TextView userNameTextView=header.findViewById(R.id.User_profile_name);
         CircleImageView profileImageView=header.findViewById(R.id.User_profile_image);
         userNameTextView.setText(Prevalent.currentUser.getName());
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+//        if(id==R.id.action_settings)
+//        {
+//            return true;
+//        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -141,9 +169,10 @@ public class Home extends AppCompatActivity implements
 //    }
 
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
+         int id = menuItem.getItemId();
 
         if (id == R.id.nav_cart) {
 //            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
@@ -161,8 +190,8 @@ public class Home extends AppCompatActivity implements
 
         } else if (id == R.id.nav_settings) {
 
-//            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(Home.this, Settings.class);
+            startActivity(intent);
 
 //        } else if (id == R.id.contact_us) {
 
@@ -175,11 +204,12 @@ public class Home extends AppCompatActivity implements
             Intent intent = new Intent(Home.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //this will make sure you cant back out again
             startActivity(intent);
+            Toast.makeText(Home.this,"Logged out Successfully",Toast.LENGTH_SHORT).show();
             finish();
 
         }
-//        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawerLayout.closeDrawer(GravityCompat.START);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
     }

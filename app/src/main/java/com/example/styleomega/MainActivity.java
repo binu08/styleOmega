@@ -255,12 +255,15 @@ public class MainActivity extends AppCompatActivity {
                             if (databaseType.equals("Users")) {
                                 loadingBar.dismiss();
                                 Toast.makeText(MainActivity.this, "Welcome Back, " + user.getName(), Toast.LENGTH_LONG).show();
+                                Prevalent.currentUser=user;
                                 startActivity(new Intent(MainActivity.this, Home.class));
-                            } else if (databaseType.equals("Admins")) {
-                                loadingBar.dismiss();
-                                Toast.makeText(MainActivity.this, "Welcome Back ADMIN, " + user.getName(), Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(MainActivity.this, AdminHome.class));
-                            }
+                           }
+//                            else if (databaseType.equals("Admins")) {
+//                                loadingBar.dismiss();
+//                                Prevalent.currentUser=user;
+//                                Toast.makeText(MainActivity.this, "Welcome Back ADMIN, " + user.getName(), Toast.LENGTH_LONG).show();
+//                                startActivity(new Intent(MainActivity.this, AdminHome.class));
+//                            }
 
                         } else {
                             loadingBar.dismiss();

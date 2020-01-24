@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Settings"></activity>
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AdminAddNewItem" />
         <activity android:name=".AdminHome" />
         <activity android:name=".AdminCategory" />
-        <activity android:name=".AdminAddNewProduct" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
             <intent-filter>
