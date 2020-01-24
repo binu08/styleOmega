@@ -324,6 +324,15 @@ public class Settings extends AppCompatActivity {
                         AccountPhoneNumber.setText("Account: " + phone);
 
                     }
+                    else if (dataSnapshot.child("name").exists()&& dataSnapshot.child("phone").exists()&& dataSnapshot.child("password").exists()){
+                        String name = dataSnapshot.child("name").getValue().toString();
+                        String phone = dataSnapshot.child("phone").getValue().toString();
+                        String password = dataSnapshot.child("password").getValue().toString();
+
+                        fullNameEditText.setText(name);
+                        passwordEditText.setText(password);
+                        AccountPhoneNumber.setText("Account: " + phone);
+                        }
 
                 }
             }
