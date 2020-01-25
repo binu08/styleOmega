@@ -105,7 +105,7 @@ public class Home extends AppCompatActivity implements
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_cart, R.id.nav_orders, R.id.nav_categories,
+                R.id.nav_cart, R.id.nav_orders,R.id.nav_search, R.id.nav_categories,
                 R.id.nav_settings, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
@@ -198,10 +198,10 @@ public class Home extends AppCompatActivity implements
            Intent intent = new Intent(Home.this, cartActivity.class);
            startActivity(intent);
 
-//        } else if (id == R.id.nav_search) {
+        } else if (id == R.id.nav_search) {
 
-//            Intent intent = new Intent(HomeActivity.this, SearchProductActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(Home.this, SearchProduct.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_categories) {
 
