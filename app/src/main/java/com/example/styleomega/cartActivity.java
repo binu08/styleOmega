@@ -134,13 +134,22 @@ public class cartActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
 
                                                     if (task.isSuccessful()) {
-                                                        Toast.makeText(cartActivity.this, "Item deleted successfully", Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(cartActivity.this, Home.class));
+                                                        Toast.makeText(cartActivity.this, "Item deleting in progress", Toast.LENGTH_SHORT).show();
+
                                                     }
                                                 }
                                             });
                                     cartListRef.child("Admin View").child(Prevalent.currentUser.getPhone())
-                                            .child("Products").child(model.getpID()).removeValue();
+                                            .child("Products").child(model.getpID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful())
+                                            {
+                                                Toast.makeText(cartActivity.this, "Item deleted successfully", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(cartActivity.this, Home.class));
+                                            }
+                                        }
+                                    });
 
                                 }
                             }

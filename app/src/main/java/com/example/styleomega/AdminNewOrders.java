@@ -59,44 +59,44 @@ public class AdminNewOrders extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-//                        String uID = getRef(position).getKey();
-//                        Intent intent = new Intent(AdminNewOrders.this, AdminUserProductsActivity.class);
-//                        intent.putExtra("uid", uID);
-//                        startActivity(intent);
+                        String uID = getRef(position).getKey();
+                        Intent intent = new Intent(AdminNewOrders.this, AdminUserProduct.class);
+                        intent.putExtra("uID", uID);
+                        startActivity(intent);
                     }
                 });
-//                holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        CharSequence option[] = new CharSequence[]{
-//
-//                                "Yes",
-//                                "No"
-//
-//                        };
-//
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(AdminNewOrdersActivity.this);
-//                        builder.setTitle("Order is Shipped?");
-//
-//                        builder.setItems(option, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                                if (which == 0) {
-//                                    String uID = getRef(position).getKey();
-//
-//                                    RemoveOrder(uID);
-//
-//
-//                                } else {
-//                                    finish();
-//                                }
-//                            }
-//                        });
-//                        builder.show();
-//                    }
-//                });
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        CharSequence option[] = new CharSequence[]{
+
+                                "Yes",
+                                "No"
+
+                        };
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AdminNewOrders.this);
+                        builder.setTitle("Do you want to ship this order?");
+
+                        builder.setItems(option, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                if (which == 0) {
+                                    String uID = getRef(position).getKey();
+
+                                    shipOrder(uID);
+
+
+                                } else {
+                                    finish();
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                });
 
 
             }
@@ -137,7 +137,7 @@ public class AdminNewOrders extends AppCompatActivity {
         }
     }
 
-    private void RemoveOrder(String uID) {
+    private void shipOrder(String uID) {
 
         ordersReference.child(uID).removeValue();
     }

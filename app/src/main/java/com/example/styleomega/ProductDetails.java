@@ -76,6 +76,22 @@ public class ProductDetails extends AppCompatActivity {
             }
         });
 
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBodyText = productName.getText().toString()+"\n"+productDescription.getText().toString()+"\n$"+productPrice.getText().toString()+"\nat Style Omega. Check it out now!";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share Product");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,  shareBodyText);
+                startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
+
+
+            }
+        });
+
     }
 
     private void getProductDetails(String productID) {
