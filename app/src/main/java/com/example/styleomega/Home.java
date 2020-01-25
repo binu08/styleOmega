@@ -32,8 +32,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.Menu;
 import android.view.ViewGroup;
@@ -58,9 +60,17 @@ public class Home extends AppCompatActivity implements
         setContentView(R.layout.activity_home);
         Paper.init(this);
         ProductsReference= FirebaseDatabase.getInstance().getReference().child("Products");
+
+
         recyclerView=findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
-        layoutManager=new LinearLayoutManager(this);
+
+//        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+//        ((StaggeredGridLayoutManager) layoutManager).setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+//        layoutManager=new LinearLayoutManager(this);
+//        favPlaces.setLayoutManager(layoutManager);
+//        favPlaces.setHasFixedSize(true);
+        layoutManager=new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
 
 
@@ -76,8 +86,12 @@ public class Home extends AppCompatActivity implements
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+                Intent intent =new Intent(Home.this,cartActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -134,12 +148,22 @@ public class Home extends AppCompatActivity implements
         //2) creating the recycler adapter
        FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter=new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
            @Override
-           protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model) {
+           protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
 
                holder.txtproductName.setText(model.getProductName());
                holder.txtProductDescription.setText(model.getDescription());
                holder.txtProductPrice.setText("$"+model.getPrice());
                Picasso.get().load(model.getImage()).into(holder.imageView); //converting the link to image
+
+               //linking item description
+               holder.itemView.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Intent intent =new Intent(Home.this,ProductDetails.class);
+                       intent.putExtra("pID",model.getpID());
+                       startActivity(intent);
+                   }
+               });
            }
 
            @NonNull
@@ -176,8 +200,8 @@ public class Home extends AppCompatActivity implements
          int id = menuItem.getItemId();
 
         if (id == R.id.nav_cart) {
-//            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
-//            startActivity(intent);
+           Intent intent = new Intent(Home.this, cartActivity.class);
+           startActivity(intent);
 
 //        } else if (id == R.id.nav_search) {
 
@@ -214,4 +238,7 @@ public class Home extends AppCompatActivity implements
 
         return true;
     }
+
+
+
 }

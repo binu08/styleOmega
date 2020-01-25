@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".cartActivity">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/checkout_button">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+
+            android:id="@+id/checkout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:text="Checkout"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            />
+
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/Order_confirmation_msg"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/colorPrimaryDark"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:text="Your order will be verified "-->
+<!--        android:textSize="20dp"-->
+<!--        android:visibility="visible"-->
+<!--        />-->
+
+    <TextView
+        android:id="@+id/total_price"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Total Price : "
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        />
+
+
+</RelativeLayout>
