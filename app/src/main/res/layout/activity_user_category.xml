@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminCategory">
+    tools:context=".UserCategory">
 
     <TextView
-        android:id="@+id/catergory_label"
+        android:id="@+id/catergory_label_user_catergory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -17,42 +17,42 @@
 
         android:fontFamily="sans-serif-medium"
         android:padding="10dp"
-        android:text="Add New Product"
+        android:text="Choose Category"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#E8070000"
         android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/liner_layout1_category"
+        app:layout_constraintBottom_toTopOf="@+id/liner_layout1_category_user_catergory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/liner_layout1_category"
+        android:id="@+id/liner_layout1_category_user_catergory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/liner_layout2_category"
+        app:layout_constraintBottom_toTopOf="@+id/liner_layout2_category_user_catergory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catergory_label">
+        app:layout_constraintTop_toBottomOf="@+id/catergory_label_user_catergory">
 
         <ImageView
-            android:id="@+id/imageView_Shirts"
+            android:id="@+id/imageView_Shirts_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/shirt" />
 
         <ImageView
-            android:id="@+id/imageView_Tshirts"
+            android:id="@+id/imageView_Tshirts_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/tshirt" />
 
         <ImageView
-            android:id="@+id/imageView_Tops"
+            android:id="@+id/imageView_Tops_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -60,32 +60,32 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/liner_layout2_category"
+        android:id="@+id/liner_layout2_category_user_catergory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/liner_layout3_category"
+        app:layout_constraintBottom_toTopOf="@+id/liner_layout3_category_user_catergory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/liner_layout1_category">
+        app:layout_constraintTop_toBottomOf="@+id/liner_layout1_category_user_catergory">
 
         <ImageView
-            android:id="@+id/imageView_Trousers"
+            android:id="@+id/imageView_Trousers_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/trousers" />
 
         <ImageView
-            android:id="@+id/imageView_Jeans"
+            android:id="@+id/imageView_Jeans_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/jeans" />
 
         <ImageView
-            android:id="@+id/imageView_Shorts"
+            android:id="@+id/imageView_Shorts_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -93,7 +93,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/liner_layout3_category"
+        android:id="@+id/liner_layout3_category_user_catergory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -101,27 +101,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/liner_layout2_category">
+        app:layout_constraintTop_toBottomOf="@+id/liner_layout2_category_user_catergory">
 
         <ImageView
-            android:id="@+id/imageView_Dresses"
+            android:id="@+id/imageView_Dresses_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/dress" />
 
         <ImageView
-            android:id="@+id/imageView_Swimwear"
+            android:id="@+id/imageView_Swimwear_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/swimwear" />
 
         <ImageView
-            android:id="@+id/imageView_Wearables"
+            android:id="@+id/imageView_Wearables_user_catergory"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/wearables" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

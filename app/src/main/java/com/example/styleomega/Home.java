@@ -65,11 +65,6 @@ public class Home extends AppCompatActivity implements
         recyclerView=findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
 
-//        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-//        ((StaggeredGridLayoutManager) layoutManager).setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
-//        layoutManager=new LinearLayoutManager(this);
-//        favPlaces.setLayoutManager(layoutManager);
-//        favPlaces.setHasFixedSize(true);
         layoutManager=new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -210,8 +205,8 @@ public class Home extends AppCompatActivity implements
 
         } else if (id == R.id.nav_categories) {
 
-//            Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
-//            startActivity(intent);
+           Intent intent = new Intent(Home.this, UserCategory.class);
+           startActivity(intent);
 
         } else if (id == R.id.nav_settings) {
 
