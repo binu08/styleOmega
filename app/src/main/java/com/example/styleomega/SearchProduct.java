@@ -3,6 +3,7 @@ package com.example.styleomega;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -36,7 +37,7 @@ public class SearchProduct extends AppCompatActivity {
         inputText = findViewById(R.id.search_product_name);
         searchBtn = findViewById(R.id.search_btn);
         searchList = findViewById(R.id.search_list);
-        searchList.setLayoutManager(new GridLayoutManager(this,3));
+        searchList.setLayoutManager(new LinearLayoutManager(this));
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
