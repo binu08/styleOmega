@@ -11,7 +11,7 @@ import android.widget.Toast;
 import io.paperdb.Paper;
 
 public class AdminHome extends AppCompatActivity {
-    Button logoutbtn, addnewItembtn;
+    Button logoutbtn, addnewItembtn,checkForOrdersbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,14 @@ public class AdminHome extends AppCompatActivity {
         setContentView(R.layout.activity_admin_home_1);
         logoutbtn = findViewById(R.id.button_AdminLogout);
         addnewItembtn = findViewById(R.id.button_add_new_item);
+        checkForOrdersbtn=findViewById(R.id.button_admin_new_orders);
+
+        checkForOrdersbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminHome.this,AdminNewOrders.class));
+            }
+        });
 
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -66,7 +66,13 @@ public class ProductDetails extends AppCompatActivity {
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToCartList();
+
+                if (status.equals("order_placed") || status.equals("order_shipped")) {
+
+                   Toast.makeText(ProductDetails.this, "You can order once again when your last order has been fulfilled", Toast.LENGTH_LONG).show();
+                } else {
+                    addToCartList();
+                }
             }
         });
 
@@ -152,11 +158,43 @@ public class ProductDetails extends AppCompatActivity {
                 });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        startActivity(new Intent(ProductDetails.this,Home.class));
-//    }
 
+    private void checkOrderStatus() {
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentUser.getPhone());
+        orderRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+
+                    String shipmentStatus = dataSnapshot.child("status").getValue().toString();
+
+
+                    if (shipmentStatus.equals("shipped")) {
+
+                        status = "order_shipped";
+
+
+                    } else if (shipmentStatus.equals("Pending Shipment")) {
+
+                        status = "order_placed";
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        checkOrderStatus();
+    }
 
 }

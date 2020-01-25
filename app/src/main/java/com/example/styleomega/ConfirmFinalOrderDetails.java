@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.styleomega.Prevalent.Prevalent;
@@ -26,6 +27,7 @@ public class ConfirmFinalOrderDetails extends AppCompatActivity {
     private EditText nameOfOrder, phoneNoOfOrder, addressOfOrder, cityOfOrder;
     private Button confirmOrderBtn;
     private String totalPrice = "";
+    TextView price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,9 @@ public class ConfirmFinalOrderDetails extends AppCompatActivity {
         phoneNoOfOrder = (EditText) findViewById(R.id.finalconfirm_phone_number);
         addressOfOrder = (EditText) findViewById(R.id.finalconfirm_shipment_address);
         cityOfOrder = (EditText) findViewById(R.id.shipment_city);
+        price=findViewById(R.id.confrim_final_order_textView_price);
         totalPrice = getIntent().getStringExtra("TotalPrice");
+        price.setText("Toatl Price of Order: $ "+totalPrice);
 
 
 
@@ -90,7 +94,7 @@ public class ConfirmFinalOrderDetails extends AppCompatActivity {
         orderMap.put("city",cityOfOrder.getText().toString());
         orderMap.put("date",saveCurrentDate);
         orderMap.put("time",saveCurrentTime);
-        orderMap.put("status","Pending Shipped");
+        orderMap.put("status","Pending Shipment");
         orderReference.updateChildren(orderMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

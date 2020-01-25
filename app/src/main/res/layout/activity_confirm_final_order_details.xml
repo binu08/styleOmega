@@ -73,7 +73,17 @@
         android:background="@color/colorPrimaryDark"
         android:textColor="@android:color/white"/>
 
-
+    <TextView
+        android:id="@+id/confrim_final_order_textView_price"
+        android:layout_below="@+id/shipment_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="Total Price"
+        android:textSize="18dp"
+        android:textColor="@color/colorPrimary"
+        />
 
 
 </RelativeLayout>

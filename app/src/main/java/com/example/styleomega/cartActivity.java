@@ -23,8 +23,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -35,22 +38,19 @@ public class cartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Button checkoutButton;
-    private TextView textViewTotalAmount;
+    private TextView textViewTotalAmount,Orderconfirmationmsg;
     private float calculateTotalPrice = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-
         recyclerView = findViewById(R.id.cart_list);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         checkoutButton =findViewById(R.id.checkout_button);
         textViewTotalAmount =findViewById(R.id.total_price);
-
+        Orderconfirmationmsg=findViewById(R.id.Order_confirmation_msg);
 
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class cartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //checkOrderStatus();
+        checkOrderStatus();
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
@@ -165,5 +165,47 @@ public class cartActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter); //settings the adapter
         adapter.startListening();
+    }
+
+    private void checkOrderStatus(){
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentUser.getPhone());
+        orderRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()){
+
+                    String shipmentStatus = dataSnapshot.child("status").getValue().toString();
+                    String userNmae = dataSnapshot.child("name").getValue().toString();
+
+                    if(shipmentStatus.equals("shipped")){
+
+                        textViewTotalAmount.setVisibility(View.GONE);
+                        Orderconfirmationmsg.setText("Your order has been shipped. It will be arrived on your doorstep soon");
+                        Orderconfirmationmsg.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                        checkoutButton.setVisibility(View.GONE);
+                        Toast.makeText(cartActivity.this,"You can order once again when your order has been finished",Toast.LENGTH_LONG).show();
+
+
+                    }
+                    else if(shipmentStatus.equals("Pending Shipment")){
+
+                        textViewTotalAmount.setVisibility(View.GONE);
+                        Orderconfirmationmsg.setText("Your order has not been shipped");
+                        Orderconfirmationmsg.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                        checkoutButton.setVisibility(View.GONE);
+                        Toast.makeText(cartActivity.this,"You can order once again when your order has been finished",Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
