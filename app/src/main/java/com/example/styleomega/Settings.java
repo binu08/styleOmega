@@ -300,6 +300,8 @@ public class Settings extends AppCompatActivity {
         }
     }
 
+
+    //this is used to preload the data into the input fields
     private void userInfoDisplay(final CircleImageView profileView,
                                  final EditText fullNameEditText, final EditText userPhoneEditText,
                                  final EditText addressEditText, final EditText passwordEditText, final TextView AccountPhoneNumber) {

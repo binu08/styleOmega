@@ -9,11 +9,7 @@
             android:icon="@drawable/nav_cart"
             android:title="Cart"
             android:iconTint="@android:color/white"/>
-        <item
-            android:id="@+id/nav_orders"
-            android:icon="@drawable/orders"
-            android:title="Orders"
-            android:iconTint="@android:color/white"/>
+
         <item
             android:id="@+id/nav_search"
             android:icon="@android:drawable/ic_menu_search"
@@ -30,10 +26,16 @@
             android:title="Settings"
             android:iconTint="@android:color/white"/>
         <item
+            android:id="@+id/nav_contactUs"
+            android:icon="@drawable/contact_us"
+            android:title="Contact Us"
+            android:iconTint="@android:color/white"/>
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout"
             android:iconTint="@android:color/white"/>
+
     </group>
 
 

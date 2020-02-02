@@ -69,7 +69,7 @@ public class ProductDetails extends AppCompatActivity {
 
                 if (status.equals("order_placed") || status.equals("order_shipped")) {
 
-                   Toast.makeText(ProductDetails.this, "You can order once again when your last order has been fulfilled", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProductDetails.this, "You can order once again when your last order has been fulfilled", Toast.LENGTH_LONG).show();
                 } else {
                     addToCartList();
                 }
@@ -83,9 +83,11 @@ public class ProductDetails extends AppCompatActivity {
 
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBodyText = productName.getText().toString()+"\n"+productDescription.getText().toString()+"\n$"+productPrice.getText().toString()+"\nat Style Omega. Check it out now!";
+                String shareBodyText = productName.getText().toString() + "\n" + productDescription.getText().toString()
+                        + "\n$" + productPrice.getText().toString()
+                        + "\nat Style Omega. Check it out now!";
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share Product");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,  shareBodyText);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
                 startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
 
 
@@ -131,7 +133,6 @@ public class ProductDetails extends AppCompatActivity {
 
         //creating another table
         final DatabaseReference cartListReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
-
         final HashMap<String, Object> cartMapData = new HashMap<>();
         cartMapData.put("pID", productID);
         cartMapData.put("size", sizeSpinner.getSelectedItem().toString());
